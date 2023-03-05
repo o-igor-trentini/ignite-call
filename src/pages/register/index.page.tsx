@@ -1,10 +1,11 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
 import { Form, FormError, Header, RegisterContainer } from './styles'
 import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
 import { FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/router'
 
 const registerFormSchema = z.object({
   username: z
@@ -22,11 +23,15 @@ const registerFormSchema = z.object({
 type RegisterFormData = z.infer<typeof registerFormSchema>
 
 const Register: FC = () => {
-  const { register, handleSubmit, formState } = useForm<RegisterFormData>({
+  const router = useRouter()
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors, isSubmitting },
+  } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
-
-  const errors = formState.errors
 
   const handleRegister = async (values: RegisterFormData): Promise<void> => {
     console.log(values)
@@ -34,6 +39,14 @@ const Register: FC = () => {
 
   const formatError = (error?: FieldError) =>
     error ? <FormError size="sm">{error.message}</FormError> : <></>
+
+  useEffect(() => {
+    const value = router.query?.username
+
+    if (!value || Array.isArray(value)) return
+
+    setValue('username', value)
+  }, [router.query?.username, setValue])
 
   return (
     <RegisterContainer>
@@ -74,7 +87,7 @@ const Register: FC = () => {
           {formatError(errors.name)}
         </label>
 
-        <Button type="submit">
+        <Button type="submit" disabled={isSubmitting}>
           Próximo passo
           <ArrowRight />
         </Button>

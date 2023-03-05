@@ -25,7 +25,7 @@ export const ClaimUsernameForm: FC = () => {
 
   const errors = formState.errors
 
-  const handleClaimUsername = (values: ClaimUsernameFormData): void => {
+  const handleClaimUsername = (values: ClsaimUsernameFormData): void => {
     console.log(values)
   }
 
@@ -35,7 +35,7 @@ export const ClaimUsernameForm: FC = () => {
         <TextInput
           size="sm"
           prefix="ignite.com/"
-          placeholder="seu usuário"
+          placeholder="Seu usuário"
           autoComplete="off"
           {...register('username')}
         />

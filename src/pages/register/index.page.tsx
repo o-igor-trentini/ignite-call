@@ -7,6 +7,7 @@ import { FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
 import { api } from '@/lib/axios'
+import { AxiosError } from 'axios'
 
 const registerFormSchema = z.object({
   username: z
@@ -38,6 +39,11 @@ const Register: FC = () => {
     try {
       await api.post('/users', values)
     } catch (err: unknown) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        alert(err?.response?.data?.message)
+        return
+      }
+
       console.error(err)
     }
   }

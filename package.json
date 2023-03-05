@@ -7,11 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:fix": "next lint --fix"
+    "lint:fix": "next lint --fix",
+    "prisma-studio": "prisma studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^2.9.11",
     "@ignite-ui/react": "^2.2.4",
+    "@prisma/client": "^4.11.0",
     "@types/node": "18.14.6",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -26,6 +28,7 @@
     "zod": "^3.21.0"
   },
   "devDependencies": {
-    "@rocketseat/eslint-config": "^1.2.0"
+    "@rocketseat/eslint-config": "^1.2.0",
+    "prisma": "^4.11.0"
   }
 }

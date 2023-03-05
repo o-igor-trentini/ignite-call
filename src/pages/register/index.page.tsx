@@ -1,5 +1,5 @@
 import { FC, useEffect } from 'react'
-import { Form, FormError, Header, RegisterContainer } from './styles'
+import { Form, FormError, Header, Container } from './styles'
 import { Button, Heading, MultiStep, Text, TextInput } from '@ignite-ui/react'
 import { ArrowRight } from 'phosphor-react'
 import { z } from 'zod'
@@ -38,6 +38,8 @@ const Register: FC = () => {
   const handleRegister = async (values: RegisterFormData): Promise<void> => {
     try {
       await api.post('/users', values)
+
+      await router.push('/register/connect-calendar')
     } catch (err: unknown) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
         alert(err?.response?.data?.message)
@@ -60,7 +62,7 @@ const Register: FC = () => {
   }, [router.query?.username, setValue])
 
   return (
-    <RegisterContainer>
+    <Container>
       <Header>
         <Heading as="strong">Bem-vindo ao Ignite Call!</Heading>
 
@@ -103,7 +105,7 @@ const Register: FC = () => {
           <ArrowRight />
         </Button>
       </Form>
-    </RegisterContainer>
+    </Container>
   )
 }
 

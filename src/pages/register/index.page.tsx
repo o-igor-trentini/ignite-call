@@ -6,6 +6,7 @@ import { z } from 'zod'
 import { FieldError, useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/router'
+import { api } from '@/lib/axios'
 
 const registerFormSchema = z.object({
   username: z
@@ -34,7 +35,11 @@ const Register: FC = () => {
   })
 
   const handleRegister = async (values: RegisterFormData): Promise<void> => {
-    console.log(values)
+    try {
+      await api.post('/users', values)
+    } catch (err: unknown) {
+      console.error(err)
+    }
   }
 
   const formatError = (error?: FieldError) =>

@@ -25,7 +25,7 @@ export const ClaimUsernameForm: FC = () => {
 
   const errors = formState.errors
 
-  const handleClaimUsername = (values: ClsaimUsernameFormData): void => {
+  const handleClaimUsername = (values: ClaimUsernameFormData): void => {
     console.log(values)
   }
 
